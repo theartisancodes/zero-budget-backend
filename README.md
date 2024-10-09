@@ -79,7 +79,6 @@ For production builds, transpile the TypeScript files and run the compiled JavaS
 
 ```bash
 npm run build
-npm start
 ```
 
 The **build** script transpiles the TypeScript into JavaScript, and **start** runs the compiled output.
