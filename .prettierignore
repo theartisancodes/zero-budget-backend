@@ -1,0 +1,7 @@
+/dist
+/coverage
+/kubernetes
+/node_modules
+/public
+/coverage
+/.github/workflows

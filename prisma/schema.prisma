@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id          String          @id @default(uuid())
+  email       String          @unique
+  password    String
+  name        String?
+  phoneNumber String?
+  budgets     Budget[]
+  savings     Saving[]
+  expenses    Expense[]
+  viewers     ProfileViewer[] @relation("UserViewers")
+  viewing     ProfileViewer[] @relation("UserViewing")
+}
+
+model ProfileViewer {
+  id           String @id @default(uuid())
+  userId       String
+  viewerUserId String
+  user         User   @relation("UserViewers", fields: [userId], references: [id])
+  viewerUser   User   @relation("UserViewing", fields: [viewerUserId], references: [id])
+}
+
+model Budget {
+  id                String    @id @default(uuid())
+  name              String
+  totalAmount       Float
+  monthlyAllocation Float
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+  savings           Saving[]
+  expenses          Expense[]
+}
+
+model Saving {
+  id          String @id @default(uuid())
+  amountSaved Float
+  goal        Float
+  userId      String
+  budgetId    String
+  user        User   @relation(fields: [userId], references: [id])
+  budget      Budget @relation(fields: [budgetId], references: [id])
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  amount      Float
+  category    String
+  description String
+  date        DateTime @default(now())
+  userId      String
+  budgetId    String
+  user        User     @relation(fields: [userId], references: [id])
+  budget      Budget   @relation(fields: [budgetId], references: [id])
+}
