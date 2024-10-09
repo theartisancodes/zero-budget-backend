@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon",
+    "dev": "npx nodemon",
     "migrate": "npx prisma migrate dev --name init",
     "generate": "npx prisma generate",
     "lint": "eslint --fix"

@@ -8,7 +8,7 @@ export const budgetSchema = gql`
     monthlyAllocation: Float!
     user: User!
     savings: [Saving!]!
-    expenses: [Expenses!]!
+    expenses: [Expense!]!
   }
 
   type Query {
