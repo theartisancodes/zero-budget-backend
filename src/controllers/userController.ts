@@ -6,9 +6,10 @@ import {
   updateUser,
   deleteUser
 } from '../services/userService';
+import { User } from '../types';
 
 export const createUserHandler = async (req: Request, res: Response) => {
-  const { email, password, name, phoneNumber } = req.body;
+  const { email, password, name, phoneNumber } = req.body as User;
   try {
     const newUser = await createUser({ email, password, name, phoneNumber });
     return res.status(201).json(newUser);

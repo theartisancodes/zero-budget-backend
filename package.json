@@ -9,8 +9,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "npx nodemon",
-    "migrate": "npx prisma migrate dev --name init",
-    "generate": "npx prisma generate",
+    "migrate": "npx src/prisma migrate dev --name init",
+    "generate": "npx src/prisma generate",
     "build": "tsc",
     "vercel-build": "yarn build",
     "lint": "eslint --fix"
