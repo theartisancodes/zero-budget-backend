@@ -9,22 +9,29 @@ export const userResolver = {
       });
     },
     getUsers: () => {
-      prisma.user.findMany();
+      const users = prisma.user.findMany();
+      if (!users) {
+        return [];
+      }
+      return users;
     }
   },
   Mutation: {
-    createUser: (_: unknown, { email, password, name, phoneNumber }: User) => {
+    createUser: (
+      _: unknown,
+      { email, password, userName, phoneNumber }: User
+    ) => {
       return prisma.user.create({
-        data: { name, email, phoneNumber, password }
+        data: { userName, email, phoneNumber, password }
       });
     },
     updateUser: (
       _: unknown,
-      { id, email, password, name, phoneNumber }: UpdateUser
+      { id, email, password, userName, phoneNumber }: UpdateUser
     ) => {
       return prisma.user.update({
         where: { id },
-        data: { email, password, name, phoneNumber }
+        data: { email, password, userName, phoneNumber }
       });
     },
     deleteUser: (_: unknown, { id }: { id: string }) => {

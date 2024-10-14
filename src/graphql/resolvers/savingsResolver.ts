@@ -8,7 +8,11 @@ export const savingResolver = {
       });
     },
     getSavings: () => {
-      return prisma.saving.findMany();
+      const savings = prisma.saving.findMany();
+      if (!savings) {
+        return [];
+      }
+      return savings;
     }
   },
   Mutation: {

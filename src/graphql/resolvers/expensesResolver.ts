@@ -8,7 +8,11 @@ export const expenseResolver = {
       });
     },
     getExpenses: () => {
-      return prisma.expense.findMany();
+      const expenses = prisma.expense.findMany();
+      if (!expenses) {
+        return [];
+      }
+      return expenses;
     }
   },
   Mutation: {
