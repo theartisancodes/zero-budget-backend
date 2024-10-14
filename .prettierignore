@@ -2,6 +2,6 @@
 /coverage
 /kubernetes
 /node_modules
-/public
+/src/public
 /coverage
 /.github/workflows
