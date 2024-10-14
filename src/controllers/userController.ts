@@ -9,9 +9,14 @@ import {
 import { User } from '../types';
 
 export const createUserHandler = async (req: Request, res: Response) => {
-  const { email, password, name, phoneNumber } = req.body as User;
+  const { email, password, userName, phoneNumber } = req.body as User;
   try {
-    const newUser = await createUser({ email, password, name, phoneNumber });
+    const newUser = await createUser({
+      email,
+      password,
+      userName,
+      phoneNumber
+    });
     return res.status(201).json(newUser);
   } catch (error) {
     return res.status(500).json({ error: 'Error creating user' });
@@ -42,13 +47,13 @@ export const getAllUsersHandler = async (req: Request, res: Response) => {
 
 export const updateUserHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { email, password, name, phoneNumber } = req.body;
+  const { email, password, userName, phoneNumber } = req.body;
   try {
     const updatedUser = await updateUser({
       id,
       email,
       password,
-      name,
+      userName,
       phoneNumber
     });
     return res.status(200).json(updatedUser);

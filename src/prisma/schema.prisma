@@ -12,7 +12,7 @@ model User {
   id          String          @id @default(uuid())
   email       String          @unique
   password    String
-  name        String?
+  userName        String?
   phoneNumber String?
   budgets     Budget[]
   savings     Saving[]

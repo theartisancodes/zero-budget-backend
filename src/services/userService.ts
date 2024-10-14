@@ -2,12 +2,17 @@ import prisma from '../config/prisma';
 
 import { User, UpdateUser } from '../types';
 
-export const createUser = ({ email, password, name, phoneNumber }: User) => {
+export const createUser = ({
+  email,
+  password,
+  userName,
+  phoneNumber
+}: User) => {
   return prisma.user.create({
     data: {
       email,
       password,
-      name,
+      userName,
       phoneNumber
     }
   });
@@ -25,14 +30,14 @@ export const getAllUsers = () => {
 
 export const updateUser = ({
   id,
-  name,
+  userName,
   email,
   password,
   phoneNumber
 }: UpdateUser) => {
   return prisma.user.update({
     where: { id },
-    data: { email, password, name, phoneNumber }
+    data: { email, password, userName, phoneNumber }
   });
 };
 

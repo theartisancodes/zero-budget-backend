@@ -3,7 +3,7 @@ import { gql } from 'graphql-tag';
 export const userSchema = gql`
   type User {
     id: String!
-    name: String
+    userName: String
     phoneNumber: String
     email: String
     password: String
