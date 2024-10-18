@@ -7,11 +7,11 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "npx tsx src/index.ts",
     "dev": "npx nodemon",
     "migrate": "npx prisma migrate dev --name init",
     "generate": "npx prisma generate",
-    "build": "tsc",
+    "build": "npx tsc",
     "vercel-build": "yarn build",
     "lint": "eslint --fix"
   },
