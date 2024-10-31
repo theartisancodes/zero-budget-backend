@@ -24,13 +24,25 @@ jobs:
 
       - name: Build and Tag Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend:latest .
-          docker tag ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend:latest ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend:$(date +%Y%m%d%H%M)
+          # Define both latest and timestamped tags
+          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}/zero-budget-backend"
+          TIMESTAMP_TAG="${IMAGE_NAME}:$(date +'%Y%m%d%H%M')"
+          
+          # Build the image with the latest tag
+          docker build -t "${IMAGE_NAME}:latest" .
+          
+          # Tag the image with the timestamped tag
+          docker tag "${IMAGE_NAME}:latest" "$TIMESTAMP_TAG"
+          
+          # Output tags for debugging
+          echo "Built Docker image with tags:"
+          echo "${IMAGE_NAME}:latest"
+          echo "$TIMESTAMP_TAG"
 
       - name: Push Docker Image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend:$(date +%Y%m%d%H%M)
+          docker push "${IMAGE_NAME}:latest"
+          docker push "$TIMESTAMP_TAG"
 
       - name: Deploy to Railway
         env:
@@ -46,5 +58,5 @@ jobs:
           # Link the Railway project
           railway link --project <project_id>  # Replace <project_id> with your Railway project ID
 
-          # Deploy the Docker image
-          railway up --service zero-budget-backend --docker-image ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend:latest
+          # Deploy the Docker image using the latest tag
+          railway up --service zero-budget-backend --docker-image "${IMAGE_NAME}:latest"
