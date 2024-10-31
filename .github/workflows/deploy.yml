@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Zero Budget Backend
 
 on:
   push:
@@ -23,28 +23,27 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and Tag Docker Image
+        env:
+          IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
         run: |
-          # Define both latest and timestamped tags
-          IMAGE_NAME="${{ secrets.DOCKER_USERNAME }}/zero-budget-backend"
           TIMESTAMP_TAG="${IMAGE_NAME}:$(date +'%Y%m%d%H%M')"
           
-          # Build the image with the latest tag
-          docker build -t "${IMAGE_NAME}:latest" .
-          
-          # Tag the image with the timestamped tag
-          docker tag "${IMAGE_NAME}:latest" "$TIMESTAMP_TAG"
-          
+          # Build the image with both latest and timestamp tags
+          docker build -t "${IMAGE_NAME}:latest" -t "$TIMESTAMP_TAG" .
+
           # Output tags for debugging
           echo "Built Docker image with tags:"
           echo "${IMAGE_NAME}:latest"
           echo "$TIMESTAMP_TAG"
 
       - name: Push Docker Image to Docker Hub
+        env:
+          IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
         run: |
           docker push "${IMAGE_NAME}:latest"
-          docker push "$TIMESTAMP_TAG"
+          docker push "${IMAGE_NAME}:$(date +'%Y%m%d%H%M')"
 
-      - name: Deploy to Railway
+      - name: Deploy
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
         run: |
@@ -52,7 +51,6 @@ jobs:
           curl -fsSL https://railway.app/install.sh | bash
           export PATH="$HOME/.railway/bin:$PATH"
 
-          # Authenticate with Railway
           railway login --token $RAILWAY_API_TOKEN
 
           # Link the Railway project
