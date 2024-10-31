@@ -16,6 +16,7 @@ COPY . .
 # Generate the Prisma client (if you're using Prisma ORM)
 RUN npx prisma generate
 
+RUN npx prisma migrate
 # Expose the port the app will run on
 EXPOSE 4000
 
