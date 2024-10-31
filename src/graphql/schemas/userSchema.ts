@@ -22,14 +22,14 @@ export const userSchema = gql`
     createUser(
       email: String!
       password: String!
-      name: String!
+      userName: String!
       phoneNumber: String!
     ): User!
     updateUser(
       id: String!
       email: String
       password: String
-      name: String
+      userName: String
       phoneNumber: String
     ): User!
     deleteUser(id: String!): User!

@@ -1,0 +1,50 @@
+name: Deploy Backend to Railway
+
+on:
+  push:
+    branches:
+      - main  # Deploy only when pushing to the main branch
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Run Prisma Migrations
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npx prisma migrate deploy
+
+      - name: Build the backend
+        run: npm run build  # Ensure your package.json has a build script
+
+      - name: Deploy
+        env:
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+        run: |
+          # Install Railway CLI
+          curl -fsSL https://railway.app/install.sh | bash
+          export PATH="$HOME/.railway/bin:$PATH"
+
+          # Authenticate with Railway
+          railway login --token $RAILWAY_API_TOKEN
+
+          # Link the Railway project
+          railway link --project <project_id>  # Replace <project_id> with your Railway project ID
+
+          # Deploy the service
+          railway up
