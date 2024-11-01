@@ -26,15 +26,16 @@ jobs:
         env:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
         run: |
-          TIMESTAMP_TAG="${IMAGE_NAME}:$(date +'%Y%m%d%H%M')"
+          docker build --load --tag ZERO_BUDGET . docker push ZERO_BUDGET
+      
           
-          # Build the image with both latest and timestamp tags
-          docker build -t "${IMAGE_NAME}:latest" -t "$TIMESTAMP_TAG" .
+
+          docker build -t "${IMAGE_NAME}:latest" -t "$ZERO_BUDGET .
 
           # Output tags for debugging
           echo "Built Docker image with tags:"
           echo "${IMAGE_NAME}:latest"
-          echo "$TIMESTAMP_TAG"
+          echo "ZERO_BUDGET"
 
       - name: Push Docker Image to Docker Hub
         env:
