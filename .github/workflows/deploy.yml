@@ -25,37 +25,36 @@ jobs:
       - name: Build and Tag Docker Image
         env:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
+          DOCKER_TAG: latest  # Set your preferred tag here (e.g., latest, v1.0.0)
         run: |
-          docker build --load --tag ZERO_BUDGET . docker push ZERO_BUDGET
-      
-          
+          # Build the Docker image with the specified tag
+          docker build -t "${IMAGE_NAME}:${DOCKER_TAG}" .
 
-          docker build -t "${IMAGE_NAME}:latest" -t "$ZERO_BUDGET .
-
-          # Output tags for debugging
-          echo "Built Docker image with tags:"
-          echo "${IMAGE_NAME}:latest"
-          echo "ZERO_BUDGET"
+          # Output the tag for debugging
+          echo "Built Docker image with tag: ${IMAGE_NAME}:${DOCKER_TAG}"
 
       - name: Push Docker Image to Docker Hub
         env:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
+          DOCKER_TAG: latest
         run: |
-          docker push "${IMAGE_NAME}:latest"
-          docker push "${IMAGE_NAME}:$(date +'%Y%m%d%H%M')"
+          docker push "${IMAGE_NAME}:${DOCKER_TAG}"
 
-      - name: Deploy
+      - name: Deploy to Railway
         env:
           RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
+          DOCKER_TAG: latest
         run: |
           # Install Railway CLI
           curl -fsSL https://railway.app/install.sh | bash
           export PATH="$HOME/.railway/bin:$PATH"
 
+          # Authenticate with Railway
           railway login --token $RAILWAY_API_TOKEN
 
           # Link the Railway project
           railway link --project <project_id>  # Replace <project_id> with your Railway project ID
 
-          # Deploy the Docker image using the latest tag
-          railway up --service zero-budget-backend --docker-image "${IMAGE_NAME}:latest"
+          # Deploy the Docker image using the specific tag
+          railway up --service zero-budget-backend --docker-image "${IMAGE_NAME}:${DOCKER_TAG}"
