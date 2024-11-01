@@ -36,11 +36,15 @@ jobs:
           DOCKER_TAG: latest
         run: |
           docker push "${IMAGE_NAME}:${DOCKER_TAG}"
-            - name: Install Railway
-          run: npm i -g @railway/cli
 
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
 
       - name: Deploy to Railway
-        run: railway up
         env:
-           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
+          DOCKER_TAG: latest
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway up
+  
+
