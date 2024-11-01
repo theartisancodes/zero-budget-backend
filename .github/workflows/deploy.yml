@@ -37,15 +37,16 @@ jobs:
         run: |
           docker push "${IMAGE_NAME}:${DOCKER_TAG}"
 
-      - name: Deploy to Railway
+      - name: Setup Railway CLI
+        uses: MadeByThePinsHub/setup-railway-cli-action@v0.1.0
+      
+
+      - name: Deploy
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
           DOCKER_TAG: latest
         run: |
-          # Install Railway CLI
-          curl -fsSL https://railway.app/install.sh | bash
-          export PATH="$HOME/.railway/bin:$PATH"
 
           # Link the Railway project
           railway link --project 02cb3a1c-bfda-4c4c-bac5-7dc3a989e01e
