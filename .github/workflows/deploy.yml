@@ -36,24 +36,11 @@ jobs:
           DOCKER_TAG: latest
         run: |
           docker push "${IMAGE_NAME}:${DOCKER_TAG}"
+            - name: Install Railway
+          run: npm i -g @railway/cli
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Authenticate Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-        run: |
-          # Run railway login to ensure authentication is in place
-          echo $RAILWAY_TOKEN | railway login --token
 
       - name: Deploy to Railway
+        run: railway up
         env:
-          IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
-          DOCKER_TAG: latest
-        run: |
-          # Link the Railway project using the RAILWAY_PROJECT_ID secret
-          railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-
-          # Deploy the Docker image using the specific tag
-          railway up --service zero-budget-backend --docker-image "${IMAGE_NAME}:${DOCKER_TAG}"
+           RAILWAY_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
