@@ -49,11 +49,10 @@ jobs:
           curl -fsSL https://railway.app/install.sh | bash
           export PATH="$HOME/.railway/bin:$PATH"
 
-          # Authenticate with Railway (no --token flag needed)
-          railway login
-
+          # Skip `railway login` and directly link and deploy with RAILWAY_TOKEN set
+          
           # Link the Railway project
-          railway link --project 02cb3a1c-bfda-4c4c-bac5-7dc3a989e01e 
+          railway link --project02cb3a1c-bfda-4c4c-bac5-7dc3a989e01e
 
           # Deploy the Docker image using the specific tag
           railway up --service zero-budget-backend --docker-image "${IMAGE_NAME}:${DOCKER_TAG}"
