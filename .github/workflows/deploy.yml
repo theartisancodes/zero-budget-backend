@@ -28,8 +28,6 @@ jobs:
           DOCKER_TAG: latest
         run: |
           docker build -t "${IMAGE_NAME}:${DOCKER_TAG}" .
-
-          # Output the tag for debugging
           echo "Built Docker image with tag: ${IMAGE_NAME}:${DOCKER_TAG}"
 
       - name: Push Docker Image to Docker Hub
@@ -49,8 +47,6 @@ jobs:
           curl -fsSL https://railway.app/install.sh | bash
           export PATH="$HOME/.railway/bin:$PATH"
 
-          # Skip `railway login` and directly link and deploy with RAILWAY_TOKEN set
-          
           # Link the Railway project
           railway link --project 02cb3a1c-bfda-4c4c-bac5-7dc3a989e01e
 
