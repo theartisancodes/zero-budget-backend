@@ -46,6 +46,6 @@ jobs:
           DOCKER_TAG: latest
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROD }}
         run: |
-          railway up
+          railway up --service zero-budget-backend --docker-image "${IMAGE_NAME}:${DOCKER_TAG}"
 
 
