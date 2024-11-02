@@ -45,7 +45,8 @@ jobs:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/zero-budget-backend
           DOCKER_TAG: latest
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROD }}
-        run: |
-          railway up --service zero-budget-backend --docker-image "${IMAGE_NAME}:${DOCKER_TAG}"
+        run: |  
+          # Deploy the Docker image using the specific tag
+          railway up --service zero-budget-backend -- --docker-image "${IMAGE_NAME}:${DOCKER_TAG}"
 
 
