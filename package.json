@@ -10,6 +10,7 @@
     "start": "npx tsx src/server.ts",
     "dev": "npx nodemon",
     "migrate": "npx prisma migrate dev --name init",
+    "migrate:deploy": "npx prisma migrate deploy",
     "generate": "npx prisma generate",
     "build": "npx tsc",
     "vercel-build": "npx tsc",
