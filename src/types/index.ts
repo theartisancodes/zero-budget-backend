@@ -15,10 +15,15 @@ export interface UpdateBudget extends Partial<Budget> {
 export interface User {
   id?: string;
   email: string;
-  password: string;
+  password: string | null;
   userName?: string;
-  phoneNumber?: string;
+  phoneNumber?: string | null;
   role?: string;
+  fullName?: string;
+  firstName?: string;
+  lastName?: string;
+  profilePicture?: string;
+  updatedAt?: string;
   budgets?: Budget[];
   expenses?: Expense[];
   savings?: Saving[];

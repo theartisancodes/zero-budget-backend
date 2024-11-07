@@ -19,19 +19,62 @@ export const userResolver = {
   Mutation: {
     createUser: (
       _: unknown,
-      { email, password, userName, phoneNumber }: User
+      {
+        id,
+        email,
+        password,
+        userName,
+        phoneNumber,
+        fullName,
+        firstName,
+        lastName,
+        profilePicture,
+        updatedAt
+      }: User
     ) => {
       return prisma.user.create({
-        data: { userName, email, phoneNumber, password }
+        data: {
+          id,
+          userName,
+          email,
+          phoneNumber,
+          password,
+          fullName,
+          firstName,
+          lastName,
+          profilePicture,
+          updatedAt
+        }
       });
     },
     updateUser: (
       _: unknown,
-      { id, email, password, userName, phoneNumber }: UpdateUser
+      {
+        id,
+        email,
+        password,
+        userName,
+        phoneNumber,
+        fullName,
+        firstName,
+        lastName,
+        profilePicture,
+        updatedAt
+      }: UpdateUser
     ) => {
       return prisma.user.update({
         where: { id },
-        data: { email, password, userName, phoneNumber }
+        data: {
+          email,
+          password,
+          userName,
+          phoneNumber,
+          fullName,
+          firstName,
+          lastName,
+          profilePicture,
+          updatedAt
+        }
       });
     },
     deleteUser: (_: unknown, { id }: { id: string }) => {

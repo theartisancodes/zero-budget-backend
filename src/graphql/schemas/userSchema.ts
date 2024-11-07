@@ -1,17 +1,25 @@
 import { gql } from 'graphql-tag';
 
 export const userSchema = gql`
+export const userSchema = gql`
   type User {
-    id: String!
-    userName: String
-    phoneNumber: String
-    email: String
-    password: String
-    budgets: [Budget]
-    savings: [Saving]
-    expenses: [Expense]
-    viewers: [ProfileViewer]
+    id: String!                 
+    userName: String             
+    phoneNumber: String          
+    email: String!                
+    password: String             
+    budgets: [Budget]            
+    savings: [Saving]            
+    expenses: [Expense]         
+    viewers: [ProfileViewer]     
+    fullName: String             
+    firstName: String            
+    lastName: String             
+    profilePicture: String      
+    updatedAt: String            
   }
+`
+
 
   type Query {
     getUser(id: String!): User

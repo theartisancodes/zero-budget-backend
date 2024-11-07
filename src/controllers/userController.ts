@@ -9,13 +9,28 @@ import {
 import { User } from '../types';
 
 export const createUserHandler = async (req: Request, res: Response) => {
-  const { email, password, userName, phoneNumber } = req.body as User;
+  const {
+    email,
+    password,
+    userName,
+    phoneNumber,
+    fullName,
+    firstName,
+    lastName,
+    profilePicture,
+    updatedAt
+  } = req.body as User;
   try {
     const newUser = await createUser({
       email,
       password,
       userName,
-      phoneNumber
+      phoneNumber,
+      fullName,
+      firstName,
+      lastName,
+      profilePicture,
+      updatedAt
     });
     return res.status(201).json(newUser);
   } catch (error) {
@@ -47,14 +62,29 @@ export const getAllUsersHandler = async (req: Request, res: Response) => {
 
 export const updateUserHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { email, password, userName, phoneNumber } = req.body;
+  const {
+    email,
+    password,
+    userName,
+    phoneNumber,
+    fullName,
+    firstName,
+    lastName,
+    profilePicture,
+    updatedAt
+  } = req.body;
   try {
     const updatedUser = await updateUser({
       id,
       email,
       password,
       userName,
-      phoneNumber
+      phoneNumber,
+      fullName,
+      firstName,
+      lastName,
+      profilePicture,
+      updatedAt
     });
     return res.status(200).json(updatedUser);
   } catch (error) {

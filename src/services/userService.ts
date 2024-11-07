@@ -1,19 +1,30 @@
 import prisma from '../config/prisma';
-
 import { User, UpdateUser } from '../types';
 
 export const createUser = ({
+  id,
   email,
-  password,
+  password = null,
   userName,
-  phoneNumber
+  phoneNumber = null,
+  fullName,
+  firstName,
+  lastName,
+  profilePicture,
+  updatedAt
 }: User) => {
   return prisma.user.create({
     data: {
+      id,
       email,
       password,
       userName,
-      phoneNumber
+      phoneNumber,
+      fullName,
+      firstName,
+      lastName,
+      profilePicture,
+      updatedAt
     }
   });
 };
@@ -32,12 +43,27 @@ export const updateUser = ({
   id,
   userName,
   email,
-  password,
-  phoneNumber
+  password = null,
+  phoneNumber,
+  fullName,
+  firstName,
+  lastName,
+  profilePicture,
+  updatedAt
 }: UpdateUser) => {
   return prisma.user.update({
     where: { id },
-    data: { email, password, userName, phoneNumber }
+    data: {
+      email,
+      password,
+      userName,
+      phoneNumber,
+      fullName,
+      firstName,
+      lastName,
+      profilePicture,
+      updatedAt
+    }
   });
 };
 
