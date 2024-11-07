@@ -12,7 +12,7 @@
     "migrate": "npx prisma migrate dev --name init",
     "generate": "npx prisma generate",
     "build": "npx tsc",
-    "vercel-build": "yarn build",
+    "vercel-build": "npx tsc",
     "lint": "eslint --fix"
   },
   "dependencies": {
