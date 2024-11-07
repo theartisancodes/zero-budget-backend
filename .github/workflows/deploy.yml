@@ -16,6 +16,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Generate Prisma Client
+        run: npm run generate
+
+      - name: Run Database Migration
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run migrate
+
       - name: Build the Application
         run: npm run build
 
@@ -25,7 +33,7 @@ jobs:
       - name: Deploy to Vercel
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }} 
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           vercel --prod --token $VERCEL_TOKEN --org-id $VERCEL_ORG_ID --project-id $VERCEL_PROJECT_ID
