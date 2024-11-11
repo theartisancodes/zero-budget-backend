@@ -1,19 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.expenseResolver = void 0;
-const prisma_1 = __importDefault(require("../../config/prisma"));
-exports.expenseResolver = {
+import prisma from '../../config/prisma';
+export const expenseResolver = {
     Query: {
         getExpense: (_, { id }) => {
-            return prisma_1.default.expense.findUnique({
+            return prisma.expense.findUnique({
                 where: { id }
             });
         },
         getExpenses: () => {
-            const expenses = prisma_1.default.expense.findMany();
+            const expenses = prisma.expense.findMany();
             if (!expenses) {
                 return Promise.resolve([]);
             }
@@ -22,7 +16,7 @@ exports.expenseResolver = {
     },
     Mutation: {
         createExpense: (_, { amount, category, description, userId, budgetId }) => {
-            return prisma_1.default.expense.create({
+            return prisma.expense.create({
                 data: {
                     amount,
                     category,
@@ -33,13 +27,13 @@ exports.expenseResolver = {
             });
         },
         updateExpense: (_, { id, amount, category, description }) => {
-            return prisma_1.default.expense.update({
+            return prisma.expense.update({
                 where: { id },
                 data: { amount, category, description }
             });
         },
         deleteExpense: (_, { id }) => {
-            return prisma_1.default.expense.delete({
+            return prisma.expense.delete({
                 where: { id }
             });
         }

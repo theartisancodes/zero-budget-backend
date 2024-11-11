@@ -1,19 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.userResolver = void 0;
-const prisma_1 = __importDefault(require("../../config/prisma"));
-exports.userResolver = {
+import prisma from '../../config/prisma';
+export const userResolver = {
     Query: {
         getUser: (_, { id }) => {
-            return prisma_1.default.user.findUnique({
+            return prisma.user.findUnique({
                 where: { id }
             });
         },
         getUsers: () => {
-            const users = prisma_1.default.user.findMany();
+            const users = prisma.user.findMany();
             if (!users) {
                 return Promise.resolve([]);
             }
@@ -22,7 +16,7 @@ exports.userResolver = {
     },
     Mutation: {
         createUser: (_, { id, email, password, userName, phoneNumber, fullName, firstName, lastName, profilePicture, updatedAt }) => {
-            return prisma_1.default.user.create({
+            return prisma.user.create({
                 data: {
                     id,
                     userName,
@@ -38,7 +32,7 @@ exports.userResolver = {
             });
         },
         updateUser: (_, { id, email, password, userName, phoneNumber, firstName, lastName, profilePicture, updatedAt }) => {
-            return prisma_1.default.user.update({
+            return prisma.user.update({
                 where: { id },
                 data: {
                     email,
@@ -53,7 +47,7 @@ exports.userResolver = {
             });
         },
         deleteUser: (_, { id }) => {
-            return prisma_1.default.user.delete({
+            return prisma.user.delete({
                 where: { id }
             });
         }
