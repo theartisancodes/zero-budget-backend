@@ -7,7 +7,10 @@ import {
   deleteExpense
 } from '../services/expensesService';
 
-export const createExpenseHandler = async (req: Request, res: Response) => {
+export const createExpenseHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { amount, category, description, userId, budgetId } = req.body;
   try {
     const newExpense = await createExpense({
@@ -17,35 +20,45 @@ export const createExpenseHandler = async (req: Request, res: Response) => {
       userId,
       budgetId
     });
-    return res.status(201).json(newExpense);
+    res.status(201).json(newExpense);
   } catch (error) {
-    return res.status(500).json({ error: 'Error creating expense' });
+    res.status(500).json({ error: 'Error creating expense' });
   }
 };
 
-export const getExpenseByIdHandler = async (req: Request, res: Response) => {
+export const getExpenseByIdHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { id } = req.params;
   try {
     const expense = await getExpenseById(id);
     if (!expense) {
-      return res.status(404).json({ error: 'Expense not found' });
+      res.status(404).json({ error: 'Expense not found' });
+      return;
     }
-    return res.status(200).json(expense);
+    res.status(200).json(expense);
   } catch (error) {
-    return res.status(500).json({ error: 'Error retrieving expense' });
+    res.status(500).json({ error: 'Error retrieving expense' });
   }
 };
 
-export const getAllExpensesHandler = async (req: Request, res: Response) => {
+export const getAllExpensesHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const expenses = await getAllExpenses();
-    return res.status(200).json(expenses);
+    res.status(200).json(expenses);
   } catch (error) {
-    return res.status(500).json({ error: 'Error retrieving expenses' });
+    res.status(500).json({ error: 'Error retrieving expenses' });
   }
 };
 
-export const updateExpenseHandler = async (req: Request, res: Response) => {
+export const updateExpenseHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { id } = req.params;
   const { amount, category, description } = req.body;
   try {
@@ -55,18 +68,21 @@ export const updateExpenseHandler = async (req: Request, res: Response) => {
       category,
       description
     });
-    return res.status(200).json(updatedExpense);
+    res.status(200).json(updatedExpense);
   } catch (error) {
-    return res.status(500).json({ error: 'Error updating expense' });
+    res.status(500).json({ error: 'Error updating expense' });
   }
 };
 
-export const deleteExpenseHandler = async (req: Request, res: Response) => {
+export const deleteExpenseHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { id } = req.params;
   try {
     await deleteExpense(id);
-    return res.status(204).send();
+    res.status(204).send();
   } catch (error) {
-    return res.status(500).json({ error: 'Error deleting expense' });
+    res.status(500).json({ error: 'Error deleting expense' });
   }
 };

@@ -7,10 +7,18 @@ export const budgetResolver = {
         where: { id }
       });
     },
-    getBudgets: () => {
+    getBudgets: (): Promise<
+      {
+        id: string;
+        name: string;
+        totalAmount: number;
+        monthlyAllocation: number;
+        userId: string;
+      }[]
+    > => {
       const budgets = prisma.budget.findMany();
       if (!budgets) {
-        return [];
+        return Promise.resolve([]);
       }
       return budgets;
     }

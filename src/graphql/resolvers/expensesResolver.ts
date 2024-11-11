@@ -7,10 +7,20 @@ export const expenseResolver = {
         where: { id }
       });
     },
-    getExpenses: () => {
+    getExpenses: (): Promise<
+      {
+        id: string;
+        amount: number;
+        category: string;
+        description: string;
+        date: Date;
+        userId: string;
+        budgetId: string;
+      }[]
+    > => {
       const expenses = prisma.expense.findMany();
       if (!expenses) {
-        return [];
+        return Promise.resolve([]);
       }
       return expenses;
     }

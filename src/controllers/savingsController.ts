@@ -7,7 +7,10 @@ import {
   deleteSaving
 } from '../services/savingsService';
 
-export const createSavingHandler = async (req: Request, res: Response) => {
+export const createSavingHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { amountSaved, goal, userId, budgetId } = req.body;
   try {
     const newSaving = await createSaving({
@@ -16,51 +19,64 @@ export const createSavingHandler = async (req: Request, res: Response) => {
       userId,
       budgetId
     });
-    return res.status(201).json(newSaving);
+    res.status(201).json(newSaving);
   } catch (error) {
-    return res.status(500).json({ error: 'Error creating saving' });
+    res.status(500).json({ error: 'Error creating saving' });
   }
 };
 
-export const getSavingByIdHandler = async (req: Request, res: Response) => {
+export const getSavingByIdHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { id } = req.params;
   try {
     const saving = await getSavingById(id);
     if (!saving) {
-      return res.status(404).json({ error: 'Saving not found' });
+      res.status(404).json({ error: 'Saving not found' });
+      return;
     }
-    return res.status(200).json(saving);
+    res.status(200).json(saving);
   } catch (error) {
-    return res.status(500).json({ error: 'Error retrieving saving' });
+    res.status(500).json({ error: 'Error retrieving saving' });
   }
 };
 
-export const getAllSavingsHandler = async (req: Request, res: Response) => {
+export const getAllSavingsHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const savings = await getAllSavings();
-    return res.status(200).json(savings);
+    res.status(200).json(savings);
   } catch (error) {
-    return res.status(500).json({ error: 'Error retrieving savings' });
+    res.status(500).json({ error: 'Error retrieving savings' });
   }
 };
 
-export const updateSavingHandler = async (req: Request, res: Response) => {
+export const updateSavingHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { id } = req.params;
   const { amountSaved, goal } = req.body;
   try {
     const updatedSaving = await updateSaving({ id, amountSaved, goal });
-    return res.status(200).json(updatedSaving);
+    res.status(200).json(updatedSaving);
   } catch (error) {
-    return res.status(500).json({ error: 'Error updating saving' });
+    res.status(500).json({ error: 'Error updating saving' });
   }
 };
 
-export const deleteSavingHandler = async (req: Request, res: Response) => {
+export const deleteSavingHandler = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { id } = req.params;
   try {
     await deleteSaving(id);
-    return res.status(204).send();
+    res.status(204).send();
   } catch (error) {
-    return res.status(500).json({ error: 'Error deleting saving' });
+    res.status(500).json({ error: 'Error deleting saving' });
   }
 };

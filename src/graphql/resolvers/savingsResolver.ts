@@ -7,10 +7,18 @@ export const savingResolver = {
         where: { id }
       });
     },
-    getSavings: () => {
+    getSavings: (): Promise<
+      {
+        id: string;
+        amountSaved: number;
+        goal: number;
+        userId: string;
+        budgetId: string;
+      }[]
+    > => {
       const savings = prisma.saving.findMany();
       if (!savings) {
-        return [];
+        return Promise.resolve([]);
       }
       return savings;
     }

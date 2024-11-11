@@ -8,10 +8,23 @@ export const userResolver = {
         where: { id }
       });
     },
-    getUsers: () => {
+    getUsers: (): Promise<
+      {
+        id: string;
+        email: string;
+        password: string;
+        userName: string;
+        phoneNumber: string;
+        fullName: string;
+        firstName: string;
+        lastName: string;
+        profilePicture: string;
+        updatedAt: Date;
+      }[]
+    > => {
       const users = prisma.user.findMany();
       if (!users) {
-        return [];
+        return Promise.resolve([]);
       }
       return users;
     }
