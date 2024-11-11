@@ -8,7 +8,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add -f dist",
     "start": "node dist/index.js",
     "dev": "npm run build && nodemon dist/index.js",
     "migrate": "npx prisma migrate dev --name init",
@@ -17,6 +19,11 @@
     "lint": "eslint --fix",
     "vercel-build": "npx tsc"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "dependencies": {
     "@apollo/server": "^4.11.0",
     "@prisma/client": "^5.20.0",
