@@ -20,7 +20,7 @@ Make sure you have the following installed before running the application:
 - **Node.js v20+**: For runtime environment
 - **TypeScript**: For type checking and transpilation
 - **ts-node**: To run TypeScript directly
-- **Nodemon**: For auto-restarting the server during development
+- **Nodemon**: For auto-restarting the index during development
 - **Prisma**: ORM for database interactions
 - **GraphQL**: API query language
 - **PostgreSQL**: Database (or use any supported Prisma database)
@@ -71,7 +71,7 @@ To run the application in development mode with **nodemon** and **ts-node**, use
 npm run dev
 ```
 
-This will start the server and reload it whenever you make changes to the code.
+This will start the index and reload it whenever you make changes to the code.
 
 ### Production Mode
 
@@ -99,7 +99,7 @@ JWT_SECRET="your-secret-key"
 
 ## GraphQL API
 
-The project uses **GraphQL** for API interactions. Once the server is running, you can access the **GraphQL Playground** at:
+The project uses **GraphQL** for API interactions. Once the index is running, you can access the **GraphQL Playground** at:
 
 ```
 http://localhost:3000/graphql
@@ -143,11 +143,11 @@ mutation {
 
 ## Development
 
-For development, you can use **nodemon** to automatically restart the server whenever you make changes to the TypeScript files.
+For development, you can use **nodemon** to automatically restart the index whenever you make changes to the TypeScript files.
 
 ### Useful Commands
 
-- **`npm run dev`**: Runs the server in development mode with automatic reload.
+- **`npm run dev`**: Runs the index in development mode with automatic reload.
 - **`npm run build`**: Transpiles TypeScript into JavaScript.
 - **`npm start`**: Runs the transpiled JavaScript files in production mode.
 - **`npx prisma studio`**: Opens Prisma Studio, a web-based database UI.

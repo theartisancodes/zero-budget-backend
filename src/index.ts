@@ -14,15 +14,15 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const server = new ApolloServer({
+const index = new ApolloServer({
   schema
 });
 
 async function startApolloServer() {
-  await server.start();
+  await index.start();
   app.use(
     '/graphql',
-    expressMiddleware(server, {
+    expressMiddleware(index, {
       context: ({ req }) => {
         return Promise.resolve({
           prisma,
@@ -37,7 +37,7 @@ async function startApolloServer() {
     res.status(200).json({ message: 'API is healthy!' });
   });
 
-  // Start the Express server
+  // Start the Express index
   const port = process.env.PORT || 4000;
   app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}/graphql`);
