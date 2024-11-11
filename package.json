@@ -11,6 +11,7 @@
     "start": "node dist/server.js",
     "dev": "npm run build && nodemon dist/server.js",
     "migrate": "npx prisma migrate dev --name init",
+    "migrate:deploy": "npx prisma migrate deploy",
     "generate": "npx prisma generate",
     "lint": "eslint --fix",
     "vercel-build": "npx tsc"
