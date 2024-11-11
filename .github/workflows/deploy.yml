@@ -16,6 +16,9 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: Run TypeScript Check
+        run: yarn ts.check
+
       - name: Generate Prisma Client
         run: yarn generate
 
@@ -25,8 +28,15 @@ jobs:
           POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
         run: yarn migrate:deploy
 
+      - name: Lint and Fix Code
+        run: yarn lint
+
       - name: Build the Application
         run: yarn build
+
+      - name: Add Built Files to Git
+        # This step ensures the `dist` folder is available for deployment
+        run: yarn add-build
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -37,9 +47,7 @@ jobs:
         run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
 
       - name: Build Project Artifacts for Vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel build --token=$VERCEL_TOKEN
+        run: yarn vercel-build
 
       - name: Deploy Project Artifacts to Vercel
         env:
