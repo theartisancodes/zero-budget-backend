@@ -1,8 +1,14 @@
-import prisma from '../../config/prisma';
-export const profileViewerResolver = {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.profileViewerResolver = void 0;
+const prisma_1 = __importDefault(require("../../config/prisma"));
+exports.profileViewerResolver = {
     Query: {
         getProfileViewers: (_, { userId }) => {
-            return prisma.profileViewer.findMany({
+            return prisma_1.default.profileViewer.findMany({
                 where: { userId },
                 include: { user: true, viewerUser: true }
             });
@@ -10,7 +16,7 @@ export const profileViewerResolver = {
     },
     Mutation: {
         addProfileViewer: (_, { userId, viewerUserId }) => {
-            return prisma.profileViewer.create({
+            return prisma_1.default.profileViewer.create({
                 data: {
                     userId,
                     viewerUserId
@@ -19,7 +25,7 @@ export const profileViewerResolver = {
             });
         },
         removeProfileViewer: async (_, { userId, viewerUserId }) => {
-            const deletedViewer = await prisma.profileViewer.deleteMany({
+            const deletedViewer = await prisma_1.default.profileViewer.deleteMany({
                 where: { userId, viewerUserId }
             });
             return deletedViewer.count > 0;

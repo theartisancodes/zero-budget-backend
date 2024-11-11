@@ -1,8 +1,11 @@
-import { createExpense, getExpenseById, getAllExpenses, updateExpense, deleteExpense } from '../services/expensesService';
-export const createExpenseHandler = async (req, res) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteExpenseHandler = exports.updateExpenseHandler = exports.getAllExpensesHandler = exports.getExpenseByIdHandler = exports.createExpenseHandler = void 0;
+const expensesService_1 = require("../services/expensesService");
+const createExpenseHandler = async (req, res) => {
     const { amount, category, description, userId, budgetId } = req.body;
     try {
-        const newExpense = await createExpense({
+        const newExpense = await (0, expensesService_1.createExpense)({
             amount,
             category,
             description,
@@ -15,10 +18,11 @@ export const createExpenseHandler = async (req, res) => {
         res.status(500).json({ error: 'Error creating expense' });
     }
 };
-export const getExpenseByIdHandler = async (req, res) => {
+exports.createExpenseHandler = createExpenseHandler;
+const getExpenseByIdHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        const expense = await getExpenseById(id);
+        const expense = await (0, expensesService_1.getExpenseById)(id);
         if (!expense) {
             res.status(404).json({ error: 'Expense not found' });
             return;
@@ -29,20 +33,22 @@ export const getExpenseByIdHandler = async (req, res) => {
         res.status(500).json({ error: 'Error retrieving expense' });
     }
 };
-export const getAllExpensesHandler = async (req, res) => {
+exports.getExpenseByIdHandler = getExpenseByIdHandler;
+const getAllExpensesHandler = async (req, res) => {
     try {
-        const expenses = await getAllExpenses();
+        const expenses = await (0, expensesService_1.getAllExpenses)();
         res.status(200).json(expenses);
     }
     catch (error) {
         res.status(500).json({ error: 'Error retrieving expenses' });
     }
 };
-export const updateExpenseHandler = async (req, res) => {
+exports.getAllExpensesHandler = getAllExpensesHandler;
+const updateExpenseHandler = async (req, res) => {
     const { id } = req.params;
     const { amount, category, description } = req.body;
     try {
-        const updatedExpense = await updateExpense({
+        const updatedExpense = await (0, expensesService_1.updateExpense)({
             id,
             amount,
             category,
@@ -54,14 +60,16 @@ export const updateExpenseHandler = async (req, res) => {
         res.status(500).json({ error: 'Error updating expense' });
     }
 };
-export const deleteExpenseHandler = async (req, res) => {
+exports.updateExpenseHandler = updateExpenseHandler;
+const deleteExpenseHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        await deleteExpense(id);
+        await (0, expensesService_1.deleteExpense)(id);
         res.status(204).send();
     }
     catch (error) {
         res.status(500).json({ error: 'Error deleting expense' });
     }
 };
+exports.deleteExpenseHandler = deleteExpenseHandler;
 //# sourceMappingURL=expensesController.js.map

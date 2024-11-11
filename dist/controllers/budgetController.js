@@ -1,8 +1,11 @@
-import { createBudget, getBudgetById, getAllBudgets, updateBudget, deleteBudget } from '../services/budgetService';
-export const createBudgetHandler = async (req, res) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteBudgetHandler = exports.updateBudgetHandler = exports.getAllBudgetsHandler = exports.getBudgetByIdHandler = exports.createBudgetHandler = void 0;
+const budgetService_1 = require("../services/budgetService");
+const createBudgetHandler = async (req, res) => {
     const { name, totalAmount, monthlyAllocation, userId } = req.body;
     try {
-        const newBudget = await createBudget({
+        const newBudget = await (0, budgetService_1.createBudget)({
             name,
             totalAmount,
             monthlyAllocation,
@@ -14,10 +17,11 @@ export const createBudgetHandler = async (req, res) => {
         res.status(500).json({ error: 'Error creating budget' });
     }
 };
-export const getBudgetByIdHandler = async (req, res) => {
+exports.createBudgetHandler = createBudgetHandler;
+const getBudgetByIdHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        const budget = await getBudgetById(id);
+        const budget = await (0, budgetService_1.getBudgetById)(id);
         if (!budget) {
             res.status(404).json({ error: 'Budget not found' });
             return;
@@ -28,20 +32,22 @@ export const getBudgetByIdHandler = async (req, res) => {
         res.status(500).json({ error: 'Error retrieving budget' });
     }
 };
-export const getAllBudgetsHandler = async (req, res) => {
+exports.getBudgetByIdHandler = getBudgetByIdHandler;
+const getAllBudgetsHandler = async (req, res) => {
     try {
-        const budgets = await getAllBudgets();
+        const budgets = await (0, budgetService_1.getAllBudgets)();
         res.status(200).json(budgets);
     }
     catch (error) {
         res.status(500).json({ error: 'Error retrieving budgets' });
     }
 };
-export const updateBudgetHandler = async (req, res) => {
+exports.getAllBudgetsHandler = getAllBudgetsHandler;
+const updateBudgetHandler = async (req, res) => {
     const { id } = req.params;
     const { name, totalAmount, monthlyAllocation } = req.body;
     try {
-        const updatedBudget = await updateBudget({
+        const updatedBudget = await (0, budgetService_1.updateBudget)({
             id,
             name,
             totalAmount,
@@ -53,14 +59,16 @@ export const updateBudgetHandler = async (req, res) => {
         res.status(500).json({ error: 'Error updating budget' });
     }
 };
-export const deleteBudgetHandler = async (req, res) => {
+exports.updateBudgetHandler = updateBudgetHandler;
+const deleteBudgetHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        await deleteBudget(id);
+        await (0, budgetService_1.deleteBudget)(id);
         res.status(204).send();
     }
     catch (error) {
         res.status(500).json({ error: 'Error deleting budget' });
     }
 };
+exports.deleteBudgetHandler = deleteBudgetHandler;
 //# sourceMappingURL=budgetController.js.map

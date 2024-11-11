@@ -1,6 +1,12 @@
-import prisma from '../config/prisma';
-export const createUser = ({ id, email, password, userName, phoneNumber = null, fullName, firstName, lastName, profilePicture, updatedAt }) => {
-    return prisma.user.create({
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteUser = exports.updateUser = exports.getAllUsers = exports.getUserById = exports.createUser = void 0;
+const prisma_1 = __importDefault(require("../config/prisma"));
+const createUser = ({ id, email, password, userName, phoneNumber = null, fullName, firstName, lastName, profilePicture, updatedAt }) => {
+    return prisma_1.default.user.create({
         data: {
             id,
             email,
@@ -15,16 +21,19 @@ export const createUser = ({ id, email, password, userName, phoneNumber = null, 
         }
     });
 };
-export const getUserById = (id) => {
-    return prisma.user.findUnique({
+exports.createUser = createUser;
+const getUserById = (id) => {
+    return prisma_1.default.user.findUnique({
         where: { id }
     });
 };
-export const getAllUsers = () => {
-    return prisma.user.findMany();
+exports.getUserById = getUserById;
+const getAllUsers = () => {
+    return prisma_1.default.user.findMany();
 };
-export const updateUser = ({ id, userName, email, password, phoneNumber, fullName, firstName, lastName, profilePicture, updatedAt }) => {
-    return prisma.user.update({
+exports.getAllUsers = getAllUsers;
+const updateUser = ({ id, userName, email, password, phoneNumber, fullName, firstName, lastName, profilePicture, updatedAt }) => {
+    return prisma_1.default.user.update({
         where: { id },
         data: {
             email,
@@ -39,9 +48,11 @@ export const updateUser = ({ id, userName, email, password, phoneNumber, fullNam
         }
     });
 };
-export const deleteUser = (id) => {
-    return prisma.user.delete({
+exports.updateUser = updateUser;
+const deleteUser = (id) => {
+    return prisma_1.default.user.delete({
         where: { id }
     });
 };
+exports.deleteUser = deleteUser;
 //# sourceMappingURL=userService.js.map

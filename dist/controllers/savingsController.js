@@ -1,8 +1,11 @@
-import { createSaving, getSavingById, getAllSavings, updateSaving, deleteSaving } from '../services/savingsService';
-export const createSavingHandler = async (req, res) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteSavingHandler = exports.updateSavingHandler = exports.getAllSavingsHandler = exports.getSavingByIdHandler = exports.createSavingHandler = void 0;
+const savingsService_1 = require("../services/savingsService");
+const createSavingHandler = async (req, res) => {
     const { amountSaved, goal, userId, budgetId } = req.body;
     try {
-        const newSaving = await createSaving({
+        const newSaving = await (0, savingsService_1.createSaving)({
             amountSaved,
             goal,
             userId,
@@ -14,10 +17,11 @@ export const createSavingHandler = async (req, res) => {
         res.status(500).json({ error: 'Error creating saving' });
     }
 };
-export const getSavingByIdHandler = async (req, res) => {
+exports.createSavingHandler = createSavingHandler;
+const getSavingByIdHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        const saving = await getSavingById(id);
+        const saving = await (0, savingsService_1.getSavingById)(id);
         if (!saving) {
             res.status(404).json({ error: 'Saving not found' });
             return;
@@ -28,34 +32,38 @@ export const getSavingByIdHandler = async (req, res) => {
         res.status(500).json({ error: 'Error retrieving saving' });
     }
 };
-export const getAllSavingsHandler = async (req, res) => {
+exports.getSavingByIdHandler = getSavingByIdHandler;
+const getAllSavingsHandler = async (req, res) => {
     try {
-        const savings = await getAllSavings();
+        const savings = await (0, savingsService_1.getAllSavings)();
         res.status(200).json(savings);
     }
     catch (error) {
         res.status(500).json({ error: 'Error retrieving savings' });
     }
 };
-export const updateSavingHandler = async (req, res) => {
+exports.getAllSavingsHandler = getAllSavingsHandler;
+const updateSavingHandler = async (req, res) => {
     const { id } = req.params;
     const { amountSaved, goal } = req.body;
     try {
-        const updatedSaving = await updateSaving({ id, amountSaved, goal });
+        const updatedSaving = await (0, savingsService_1.updateSaving)({ id, amountSaved, goal });
         res.status(200).json(updatedSaving);
     }
     catch (error) {
         res.status(500).json({ error: 'Error updating saving' });
     }
 };
-export const deleteSavingHandler = async (req, res) => {
+exports.updateSavingHandler = updateSavingHandler;
+const deleteSavingHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        await deleteSaving(id);
+        await (0, savingsService_1.deleteSaving)(id);
         res.status(204).send();
     }
     catch (error) {
         res.status(500).json({ error: 'Error deleting saving' });
     }
 };
+exports.deleteSavingHandler = deleteSavingHandler;
 //# sourceMappingURL=savingsController.js.map

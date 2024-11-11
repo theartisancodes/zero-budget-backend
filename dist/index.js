@@ -1,24 +1,29 @@
-import express from 'express';
-import { ApolloServer } from '@apollo/server';
-import { expressMiddleware } from '@apollo/server/express4';
-import { schema } from './graphql';
-import prisma from './config/prisma';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-dotenv.config();
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-const index = new ApolloServer({
-    schema
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const server_1 = require("@apollo/server");
+const express4_1 = require("@apollo/server/express4");
+const graphql_1 = require("./graphql");
+const prisma_1 = __importDefault(require("./config/prisma"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
+const body_parser_1 = __importDefault(require("body-parser"));
+dotenv_1.default.config();
+const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
+app.use(body_parser_1.default.json());
+const index = new server_1.ApolloServer({
+    schema: graphql_1.schema
 });
 async function startApolloServer() {
     await index.start();
-    app.use('/graphql', expressMiddleware(index, {
+    app.use('/graphql', (0, express4_1.expressMiddleware)(index, {
         context: ({ req }) => {
             return Promise.resolve({
-                prisma,
+                prisma: prisma_1.default,
                 user: req.user
             });
         }

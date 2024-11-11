@@ -1,1 +1,1 @@
-{"version":3,"file":"expensesSchema.js","sourceRoot":"","sources":["../../../src/graphql/schemas/expensesSchema.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,GAAG,EAAE,MAAM,aAAa,CAAC;AAElC,MAAM,CAAC,MAAM,aAAa,GAAG,GAAG,CAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CAgC/B,CAAC"}
+{"version":3,"file":"expensesSchema.js","sourceRoot":"","sources":["../../../src/graphql/schemas/expensesSchema.ts"],"names":[],"mappings":";;;AAAA,6CAAkC;AAErB,QAAA,aAAa,GAAG,IAAA,iBAAG,EAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CAgC/B,CAAC"}

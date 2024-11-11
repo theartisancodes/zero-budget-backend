@@ -1,5 +1,8 @@
-import { gql } from 'graphql-tag';
-export const userSchema = gql `
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userSchema = void 0;
+const graphql_tag_1 = require("graphql-tag");
+exports.userSchema = (0, graphql_tag_1.gql) `
   type User {
     id: String!
     userName: String
