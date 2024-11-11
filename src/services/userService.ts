@@ -4,7 +4,7 @@ import { User, UpdateUser } from '../types';
 export const createUser = ({
   id,
   email,
-  password = null,
+  password,
   userName,
   phoneNumber = null,
   fullName,
@@ -43,7 +43,7 @@ export const updateUser = ({
   id,
   userName,
   email,
-  password = null,
+  password,
   phoneNumber,
   fullName,
   firstName,

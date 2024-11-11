@@ -7,14 +7,13 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "npx tsx src/server.ts",      
-    "dev": "npx nodemon src/server.ts", 
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "npm run build && nodemon dist/server.js",
     "migrate": "npx prisma migrate dev --name init",
-    "migrate:deploy": "npx prisma migrate deploy",
     "generate": "npx prisma generate",
-    "build": "npx tsc",
-    "vercel-build": "npx tsc",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "vercel-build": "npx tsc"
   },
   "dependencies": {
     "@apollo/server": "^4.11.0",

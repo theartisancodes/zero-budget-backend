@@ -15,7 +15,7 @@ export interface UpdateBudget extends Partial<Budget> {
 export interface User {
   id?: string;
   email: string;
-  password: string | null;
+  password: string;
   userName?: string;
   phoneNumber?: string | null;
   role?: string;
