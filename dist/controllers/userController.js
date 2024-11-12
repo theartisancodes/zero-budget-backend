@@ -1,11 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserHandler = exports.updateUserHandler = exports.getAllUsersHandler = exports.getUserByIdHandler = exports.createUserHandler = void 0;
-const userService_1 = require("../services/userService");
-const createUserHandler = async (req, res) => {
+import { createUser, getUserById, getAllUsers, updateUser, deleteUser } from '../services/userService';
+export const createUserHandler = async (req, res) => {
     const { email, password, userName, phoneNumber, fullName, firstName, lastName, profilePicture, updatedAt } = req.body;
     try {
-        const newUser = await (0, userService_1.createUser)({
+        const newUser = await createUser({
             email,
             password,
             userName,
@@ -22,11 +19,10 @@ const createUserHandler = async (req, res) => {
         res.status(500).json({ error: 'Error creating user' });
     }
 };
-exports.createUserHandler = createUserHandler;
-const getUserByIdHandler = async (req, res) => {
+export const getUserByIdHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await (0, userService_1.getUserById)(id);
+        const user = await getUserById(id);
         if (!user) {
             res.status(404).json({ error: 'User not found' });
             return;
@@ -37,22 +33,20 @@ const getUserByIdHandler = async (req, res) => {
         res.status(500).json({ error: 'Error retrieving user' });
     }
 };
-exports.getUserByIdHandler = getUserByIdHandler;
-const getAllUsersHandler = async (req, res) => {
+export const getAllUsersHandler = async (req, res) => {
     try {
-        const users = await (0, userService_1.getAllUsers)();
+        const users = await getAllUsers();
         res.status(200).json(users);
     }
     catch (error) {
         res.status(500).json({ error: 'Error retrieving users' });
     }
 };
-exports.getAllUsersHandler = getAllUsersHandler;
-const updateUserHandler = async (req, res) => {
+export const updateUserHandler = async (req, res) => {
     const { id } = req.params;
     const { email, password, userName, phoneNumber, firstName, lastName, profilePicture, updatedAt } = req.body;
     try {
-        const updatedUser = await (0, userService_1.updateUser)({
+        const updatedUser = await updateUser({
             id,
             email,
             password,
@@ -69,16 +63,14 @@ const updateUserHandler = async (req, res) => {
         res.status(500).json({ error: 'Error updating user' });
     }
 };
-exports.updateUserHandler = updateUserHandler;
-const deleteUserHandler = async (req, res) => {
+export const deleteUserHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        await (0, userService_1.deleteUser)(id);
+        await deleteUser(id);
         res.status(204).send();
     }
     catch (error) {
         res.status(500).json({ error: 'Error deleting user' });
     }
 };
-exports.deleteUserHandler = deleteUserHandler;
 //# sourceMappingURL=userController.js.map

@@ -1,12 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSaving = exports.updateSaving = exports.getAllSavings = exports.getSavingById = exports.createSaving = void 0;
-const prisma_1 = __importDefault(require("../config/prisma"));
-const createSaving = ({ amountSaved, goal, userId, budgetId }) => {
-    return prisma_1.default.saving.create({
+import prisma from '../config/prisma';
+export const createSaving = ({ amountSaved, goal, userId, budgetId }) => {
+    return prisma.saving.create({
         data: {
             amountSaved,
             goal,
@@ -15,28 +9,23 @@ const createSaving = ({ amountSaved, goal, userId, budgetId }) => {
         }
     });
 };
-exports.createSaving = createSaving;
-const getSavingById = (id) => {
-    return prisma_1.default.saving.findUnique({
+export const getSavingById = (id) => {
+    return prisma.saving.findUnique({
         where: { id }
     });
 };
-exports.getSavingById = getSavingById;
-const getAllSavings = () => {
-    return prisma_1.default.saving.findMany();
+export const getAllSavings = () => {
+    return prisma.saving.findMany();
 };
-exports.getAllSavings = getAllSavings;
-const updateSaving = ({ id, amountSaved, goal }) => {
-    return prisma_1.default.saving.update({
+export const updateSaving = ({ id, amountSaved, goal }) => {
+    return prisma.saving.update({
         where: { id },
         data: { amountSaved, goal }
     });
 };
-exports.updateSaving = updateSaving;
-const deleteSaving = (id) => {
-    return prisma_1.default.saving.delete({
+export const deleteSaving = (id) => {
+    return prisma.saving.delete({
         where: { id }
     });
 };
-exports.deleteSaving = deleteSaving;
 //# sourceMappingURL=savingsService.js.map

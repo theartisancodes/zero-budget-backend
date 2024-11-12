@@ -1,19 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.savingResolver = void 0;
-const prisma_1 = __importDefault(require("../../config/prisma"));
-exports.savingResolver = {
+import prisma from '../../config/prisma';
+export const savingResolver = {
     Query: {
         getSaving: (_, { id }) => {
-            return prisma_1.default.saving.findUnique({
+            return prisma.saving.findUnique({
                 where: { id }
             });
         },
         getSavings: () => {
-            const savings = prisma_1.default.saving.findMany();
+            const savings = prisma.saving.findMany();
             if (!savings) {
                 return Promise.resolve([]);
             }
@@ -22,7 +16,7 @@ exports.savingResolver = {
     },
     Mutation: {
         createSaving: (_, { amountSaved, goal, userId, budgetId }) => {
-            return prisma_1.default.saving.create({
+            return prisma.saving.create({
                 data: {
                     amountSaved,
                     goal,
@@ -32,13 +26,13 @@ exports.savingResolver = {
             });
         },
         updateSaving: (_, { id, amountSaved, goal }) => {
-            return prisma_1.default.saving.update({
+            return prisma.saving.update({
                 where: { id },
                 data: { amountSaved, goal }
             });
         },
         deleteSaving: (_, { id }) => {
-            return prisma_1.default.saving.delete({
+            return prisma.saving.delete({
                 where: { id }
             });
         }

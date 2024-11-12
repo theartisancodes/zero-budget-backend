@@ -1,12 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteExpense = exports.updateExpense = exports.getAllExpenses = exports.getExpenseById = exports.createExpense = void 0;
-const prisma_1 = __importDefault(require("../config/prisma"));
-const createExpense = ({ amount, category, description, userId, budgetId }) => {
-    return prisma_1.default.expense.create({
+import prisma from '../config/prisma';
+export const createExpense = ({ amount, category, description, userId, budgetId }) => {
+    return prisma.expense.create({
         data: {
             amount,
             category,
@@ -16,28 +10,23 @@ const createExpense = ({ amount, category, description, userId, budgetId }) => {
         }
     });
 };
-exports.createExpense = createExpense;
-const getExpenseById = (id) => {
-    return prisma_1.default.expense.findUnique({
+export const getExpenseById = (id) => {
+    return prisma.expense.findUnique({
         where: { id }
     });
 };
-exports.getExpenseById = getExpenseById;
-const getAllExpenses = () => {
-    return prisma_1.default.expense.findMany();
+export const getAllExpenses = () => {
+    return prisma.expense.findMany();
 };
-exports.getAllExpenses = getAllExpenses;
-const updateExpense = ({ id, amount, category, description }) => {
-    return prisma_1.default.expense.update({
+export const updateExpense = ({ id, amount, category, description }) => {
+    return prisma.expense.update({
         where: { id },
         data: { amount, category, description }
     });
 };
-exports.updateExpense = updateExpense;
-const deleteExpense = (id) => {
-    return prisma_1.default.expense.delete({
+export const deleteExpense = (id) => {
+    return prisma.expense.delete({
         where: { id }
     });
 };
-exports.deleteExpense = deleteExpense;
 //# sourceMappingURL=expensesService.js.map
