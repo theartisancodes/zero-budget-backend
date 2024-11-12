@@ -7,23 +7,24 @@
   "author": "kjoenzau@gmail.com",
   "license": "MIT",
   "scripts": {
-    "build": "prisma generate && rimraf dist && tsc",
-    "prisma:generate": "prisma generate",
+    "build": "rimraf dist && tsc && prisma generate",
+    "start": "node dist/index.js",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add -f dist",
-    "start": "node dist/index.js",
-    "dev": "npm run build && nodemon dist/index.js",
-    "migrate": "npx prisma migrate dev --name init",
-    "migrate:deploy": "npx prisma migrate deploy",
-    "generate": "npx prisma generate",
+    "dev": "tsc && nodemon dist/index.js",
+    "migrate": "prisma migrate dev --name init",
+    "migrate:deploy": "prisma migrate deploy",
+    "generate": "prisma generate",
     "lint": "eslint --fix",
-    "vercel-build": "npx tsc"
+    "vercel-build": "tsc",
+    "postinstall": "prisma generate"
   },
   "pre-commit": [
     "ts.check",
     "build",
     "add-build"
   ],
+
   "dependencies": {
     "@apollo/server": "^4.11.0",
     "@prisma/client": "^5.20.0",
